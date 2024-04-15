@@ -1,67 +1,35 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
-
-import Home from "./page/Home";
-import About from "./page/About";
-import Product from "./page/Product";
-import ProductDetail from "./page/ProductDetail";
-import Login from "./page/Login";
-import User from "./page/User";
-import Error from "./page/Error";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
+import Box from "./component/Box";
 
-// [첫번째 방법] 👉 BrowserRouter 사용
 function App() {
-  const [authenticate, setAuthenticate] = useState(false);
+  const dispatch = useDispatch();
+  const count = useSelector((state) => state.count);
 
-  const PrivateRoute = () => {
-    if (authenticate) {
-      return <User />;
-    } else {
-      return <Navigate to="/login" />;
-    }
+  const increase = () => {
+    dispatch({
+      type: "INCREMENT",
+      payload: { num: 5 },
+    });
+  };
+
+  const discrease = () => {
+    dispatch({
+      type: "DECREMENT",
+      payload: { num: 3 },
+    });
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        {/* Restful URL 패턴 */}
-        <Route path="/products" element={<Product />} />
-        <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/user" element={<PrivateRoute />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <h1>count : {count}</h1>
+      <button onClick={increase}>증가</button>
+      <button onClick={discrease}>감소</button>
+      <br />
+      <Box />
+    </div>
   );
 }
-
-// [두번째 방법] 👉 createBrowserRouter 사용
-// function App() {
-//   const [authenticate, setAuthenticate] = useState(false);
-
-//   const PrivateRoute = () => {
-//     if (authenticate) {
-//       return <User />;
-//     } else {
-//       return <Navigate to="/login" />;
-//     }
-//   };
-
-//   const router = createBrowserRouter([
-//     { path: "/", element: <Home /> },
-//     { path: "/about", element: <About /> },
-//     { path: "/products", element: <Product /> },
-//     { path: "/products/:id", element: <ProductDetail /> },
-//     { path: "/login", element: <Login /> },
-//     { path: "/user", element: <PrivateRoute /> },
-//     { path: "*", element: <Error /> },
-//   ]);
-
-//   return <RouterProvider router={router} />;
-// }
 
 export default App;

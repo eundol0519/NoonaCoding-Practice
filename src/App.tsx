@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./App.css";
 import Box from "./component/Box";
+import { AppDispatch, RootState } from "./redux/store";
 
 function App() {
-  const dispatch = useDispatch();
-  const count = useSelector((state) => state.count);
+  const dispatch: AppDispatch = useDispatch();
+  const count = useSelector((state: RootState) => state.count);
 
   const increase = () => {
     dispatch({

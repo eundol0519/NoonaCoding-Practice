@@ -1,9 +1,9 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import GrandSonBox from "./GrandSonBox";
+import { RootState } from "../redux/store";
 
 const Box = () => {
-  const count = useSelector((state) => state.count);
+  const count = useSelector((state: RootState) => state.count);
 
   return (
     <div>

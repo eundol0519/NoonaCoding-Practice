@@ -3,23 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import Box from "./component/Box";
 import { AppDispatch, RootState } from "./redux/store";
+import { reducerActions } from "./redux/reducer";
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
   const count = useSelector((state: RootState) => state.count);
 
   const increase = () => {
-    dispatch({
-      type: "INCREMENT",
-      payload: { num: 5 },
-    });
+    dispatch(reducerActions.increment(5));
   };
 
   const discrease = () => {
-    dispatch({
-      type: "DECREMENT",
-      payload: { num: 3 },
-    });
+    dispatch(reducerActions.decrement(3));
   };
 
   return (
